@@ -1,6 +1,7 @@
 package web.dao;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 
 
@@ -14,21 +15,25 @@ public class UserDAOImpl implements UserDAO {
     private EntityManager em;
 
     @Override
+    @Transactional
     public List<User> index() {
         return em.createQuery("from User", User.class).getResultList();
     }
 
     @Override
+    @Transactional
     public User show(int id) {
         return em.find(User.class, id);
     }
 
     @Override
+    @Transactional
     public void save(User user) {
         em.persist(user);
     }
 
     @Override
+    @Transactional
     public void update(User updatedUser, int id) {
 
         User userToBeUpdated = em.find(User.class, id);
@@ -37,6 +42,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         em.remove(em.find(User.class, id));
     }
